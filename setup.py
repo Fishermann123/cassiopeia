@@ -4,28 +4,24 @@ import sys
 
 from setuptools import setup, find_packages
 
-
 install_requires = [
-    "sqlalchemy"
 ]
 
-# Install python 2.7 dependencies
+# Install python 2 dependencies
 if sys.version_info.major == 2:
     install_requires += [
-        "future==0.15.2",
-        "enum34==1.1.1",
     ]
 
 setup(
     name="cassiopeia",
-    version="0.1.1",
+    version="1.0.0",
     author="Rob Rua",
     author_email="robrua@alumni.cmu.edu",
     url="https://github.com/robrua/cassiopeia",
     description="Riot Games Developer API Wrapper (3rd Party)",
     keywords=["LoL", "League of Legends", "Riot Games", "API", "REST"],
     classifiers=[
-        "Development Status :: 4 - Beta",
+        "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3",
         "Environment :: Web Environment",
         "Operating System :: OS Independent",
