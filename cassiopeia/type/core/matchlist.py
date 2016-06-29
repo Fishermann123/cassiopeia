@@ -22,7 +22,7 @@ class MatchReference(cassiopeia.type.core.common.CassiopeiaObject):
         return hash(self.id)
 
     @cassiopeia.type.core.common.immutablemethod
-    def match(self, include_timeline=True):
+    def match(self, include_timeline=False):
         """
         Gets the full information for this match
 
