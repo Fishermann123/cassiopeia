@@ -6,7 +6,7 @@ import cassiopeia.type.core.match
 import cassiopeia.type.core.matchlist
 
 
-def get_match(id_, include_timeline=True, tournament_code=""):
+def get_match(id_, include_timeline=False, tournament_code=""):
     """
     Gets a match
 
@@ -42,7 +42,7 @@ def get_match(id_, include_timeline=True, tournament_code=""):
     return match
 
 
-def get_matches(ids, include_timeline=True, tournament_code=""):
+def get_matches(ids, include_timeline=False, tournament_code=""):
     """
     Gets a bunch of matches
 
