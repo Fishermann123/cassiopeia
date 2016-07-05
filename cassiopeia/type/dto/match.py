@@ -30,84 +30,84 @@ class MatchDetail(cassiopeia.type.dto.common.CassiopeiaDto):
     """
     def __init__(self, dictionary):
         self.mapId = dictionary.get("mapId", 0)
-        self.matchCreation = dictionary.get("matchCreation", 0)
-        self.matchDuration = dictionary.get("matchDuration", 0)
+##        self.matchCreation = dictionary.get("matchCreation", 0)
+##        self.matchDuration = dictionary.get("matchDuration", 0)
         self.matchId = dictionary.get("matchId", 0)
-        self.matchMode = dictionary.get("matchMode", "")
-        self.matchType = dictionary.get("matchType", "")
-        self.matchVersion = dictionary.get("matchVersion", "")
+##        self.matchMode = dictionary.get("matchMode", "")
+##        self.matchType = dictionary.get("matchType", "")
+##        self.matchVersion = dictionary.get("matchVersion", "")
         self.participantIdentities = [(ParticipantIdentity(pi) if not isinstance(pi, ParticipantIdentity) else pi) for pi in dictionary.get("participantIdentities", []) if pi]
         self.participants = [(Participant(p) if not isinstance(p, Participant) else p) for p in dictionary.get("participants", []) if p]
-        self.platformId = dictionary.get("platformId", "")
-        self.queueType = dictionary.get("queueType", "")
+##        self.platformId = dictionary.get("platformId", "")
+##        self.queueType = dictionary.get("queueType", "")
         self.region = dictionary.get("region", "")
-        self.season = dictionary.get("season", "")
+##        self.season = dictionary.get("season", "")
         self.teams = [(Team(t) if not isinstance(t, Team) else t) for t in dictionary.get("teams", []) if t]
         val = dictionary.get("timeline", None)
         self.timeline = Timeline(val) if val and not isinstance(val, Timeline) else val
 
-    @property
-    def item_ids(self):
-        """
-        Gets all item IDs contained in this object
-        """
-        ids = set()
-        for p in self.participants:
-            s = p.stats
-            if s.item0:
-                ids.add(s.item0)
-            if s.item1:
-                ids.add(s.item1)
-            if s.item2:
-                ids.add(s.item2)
-            if s.item3:
-                ids.add(s.item3)
-            if s.item4:
-                ids.add(s.item4)
-            if s.item5:
-                ids.add(s.item5)
-            if s.item6:
-                ids.add(s.item6)
-        return ids
-
-    @property
-    def champion_ids(self):
-        """
-        Gets all item IDs contained in this object
-        """
-        ids = set()
-        for p in self.participants:
-            if p.championId:
-                ids.add(p.championId)
-        for t in self.teams:
-            for b in t.bans:
-                if b.championId:
-                    ids.add(b.championId)
-        return ids
-
-    @property
-    def mastery_ids(self):
-        """
-        Gets all item IDs contained in this object
-        """
-        ids = set()
-        for p in self.participants:
-            for m in p.masteries:
-                if m.masteryId:
-                    ids.add(m.masteryId)
-        return ids
-
-    @property
-    def rune_ids(self):
-        """
-        Gets all item IDs contained in this object
-        """
-        ids = set()
-        for p in self.participants:
-            for r in p.runes:
-                if r.runeId:
-                    ids.add(r.runeId)
-        return ids
+##    @property
+##    def item_ids(self):
+##        """
+##        Gets all item IDs contained in this object
+##        """
+##        ids = set()
+##        for p in self.participants:
+##            s = p.stats
+##            if s.item0:
+##                ids.add(s.item0)
+##            if s.item1:
+##                ids.add(s.item1)
+##            if s.item2:
+##                ids.add(s.item2)
+##            if s.item3:
+##                ids.add(s.item3)
+##            if s.item4:
+##                ids.add(s.item4)
+##            if s.item5:
+##                ids.add(s.item5)
+##            if s.item6:
+##                ids.add(s.item6)
+##        return ids
+##
+##    @property
+##    def champion_ids(self):
+##        """
+##        Gets all item IDs contained in this object
+##        """
+##        ids = set()
+##        for p in self.participants:
+##            if p.championId:
+##                ids.add(p.championId)
+##        for t in self.teams:
+##            for b in t.bans:
+##                if b.championId:
+##                    ids.add(b.championId)
+##        return ids
+##
+##    @property
+##    def mastery_ids(self):
+##        """
+##        Gets all item IDs contained in this object
+##        """
+##        ids = set()
+##        for p in self.participants:
+##            for m in p.masteries:
+##                if m.masteryId:
+##                    ids.add(m.masteryId)
+##        return ids
+##
+##    @property
+##    def rune_ids(self):
+##        """
+##        Gets all item IDs contained in this object
+##        """
+##        ids = set()
+##        for p in self.participants:
+##            for r in p.runes:
+##                if r.runeId:
+##                    ids.add(r.runeId)
+##        return ids
 
     @property
     def summoner_ids(self):
@@ -120,18 +120,18 @@ class MatchDetail(cassiopeia.type.dto.common.CassiopeiaDto):
                 ids.add(p.player.summonerId)
         return ids
 
-    @property
-    def summoner_spell_ids(self):
-        """
-        Gets all item IDs contained in this object
-        """
-        ids = set()
-        for p in self.participants:
-            if p.spell1Id:
-                ids.add(p.spell1Id)
-            if p.spell2Id:
-                ids.add(p.spell2Id)
-        return ids
+##    @property
+##    def summoner_spell_ids(self):
+##        """
+##        Gets all item IDs contained in this object
+##        """
+##        ids = set()
+##        for p in self.participants:
+##            if p.spell1Id:
+##                ids.add(p.spell1Id)
+##            if p.spell2Id:
+##                ids.add(p.spell2Id)
+##        return ids
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -140,13 +140,13 @@ class Participant(cassiopeia.type.dto.common.CassiopeiaDto):
     Gets all item IDs contained in this object
     """
     def __init__(self, dictionary):
-        self.championId = dictionary.get("championId", 0)
-        self.highestAchievedSeasonTier = dictionary.get("highestAchievedSeasonTier", "")
-        self.masteries = [(Mastery(m) if not isinstance(m, Mastery) else m) for m in dictionary.get("masteries", []) if m]
+##        self.championId = dictionary.get("championId", 0)
+##        self.highestAchievedSeasonTier = dictionary.get("highestAchievedSeasonTier", "")
+##        self.masteries = [(Mastery(m) if not isinstance(m, Mastery) else m) for m in dictionary.get("masteries", []) if m]
         self.participantId = dictionary.get("participantId", 0)
-        self.runes = [(Rune(r) if not isinstance(r, Rune) else r) for r in dictionary.get("runes", []) if r]
-        self.spell1Id = dictionary.get("spell1Id", 0)
-        self.spell2Id = dictionary.get("spell2Id", 0)
+##        self.runes = [(Rune(r) if not isinstance(r, Rune) else r) for r in dictionary.get("runes", []) if r]
+##        self.spell1Id = dictionary.get("spell1Id", 0)
+##        self.spell2Id = dictionary.get("spell2Id", 0)
         val = dictionary.get("stats", None)
         self.stats = ParticipantStats(val) if val and not isinstance(val, ParticipantStats) else val
         self.teamId = dictionary.get("teamId", 0)
@@ -171,22 +171,23 @@ class Team(cassiopeia.type.dto.common.CassiopeiaDto):
     Gets all mastery IDs contained in this object
     """
     def __init__(self, dictionary):
-        self.bans = [(BannedChampion(c) if not isinstance(c, BannedChampion) else c) for c in dictionary.get("bans", []) if c]
-        self.baronKills = dictionary.get("baronKills", 0)
-        self.dominionVictoryScore = dictionary.get("dominionVictoryScore", 0)
-        self.dragonKills = dictionary.get("dragonKills", 0)
-        self.firstBaron = dictionary.get("firstBaron", False)
-        self.firstBlood = dictionary.get("firstBlood", False)
-        self.firstDragon = dictionary.get("firstDragon", False)
-        self.firstInhibitor = dictionary.get("firstInhibitor", False)
-        self.firstRiftHerald = dictionary.get("firstRiftHerald", False)
-        self.firstTower = dictionary.get("firstTower", False)
-        self.inhibitorKills = dictionary.get("inhibitorKills", 0)
-        self.riftHeraldKills = dictionary.get("riftHeraldKills", 0)
-        self.teamId = dictionary.get("teamId", 0)
-        self.towerKills = dictionary.get("towerKills", 0)
-        self.vilemawKills = dictionary.get("vilemawKills", 0)
-        self.winner = dictionary.get("winner", False)
+##        self.bans = [(BannedChampion(c) if not isinstance(c, BannedChampion) else c) for c in dictionary.get("bans", []) if c]
+##        self.baronKills = dictionary.get("baronKills", 0)
+##        self.dominionVictoryScore = dictionary.get("dominionVictoryScore", 0)
+##        self.dragonKills = dictionary.get("dragonKills", 0)
+##        self.firstBaron = dictionary.get("firstBaron", False)
+##        self.firstBlood = dictionary.get("firstBlood", False)
+##        self.firstDragon = dictionary.get("firstDragon", False)
+##        self.firstInhibitor = dictionary.get("firstInhibitor", False)
+##        self.firstRiftHerald = dictionary.get("firstRiftHerald", False)
+##        self.firstTower = dictionary.get("firstTower", False)
+##        self.inhibitorKills = dictionary.get("inhibitorKills", 0)
+##        self.riftHeraldKills = dictionary.get("riftHeraldKills", 0)
+##        self.teamId = dictionary.get("teamId", 0)
+##        self.towerKills = dictionary.get("towerKills", 0)
+##        self.vilemawKills = dictionary.get("vilemawKills", 0)
+##        self.winner = dictionary.get("winner", False)
+        pass
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -205,8 +206,9 @@ class Mastery(cassiopeia.type.dto.common.CassiopeiaDto):
     Gets all summoner IDs contained in this object
     """
     def __init__(self, dictionary):
-        self.masteryId = dictionary.get("masteryId", 0)
-        self.rank = dictionary.get("rank", 0)
+##        self.masteryId = dictionary.get("masteryId", 0)
+##        self.rank = dictionary.get("rank", 0)
+        pass
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -216,66 +218,66 @@ class ParticipantStats(cassiopeia.type.dto.common.CassiopeiaDto):
     """
     def __init__(self, dictionary):
         self.assists = dictionary.get("assists", 0)
-        self.champLevel = dictionary.get("champLevel", 0)
-        self.combatPlayerScore = dictionary.get("combatPlayerScore", 0)
+##        self.champLevel = dictionary.get("champLevel", 0)
+##        self.combatPlayerScore = dictionary.get("combatPlayerScore", 0)
         self.deaths = dictionary.get("deaths", 0)
-        self.doubleKills = dictionary.get("doubleKills", 0)
-        self.firstBloodAssist = dictionary.get("firstBloodAssist", False)
-        self.firstBloodKill = dictionary.get("firstBloodKill", False)
-        self.firstInhibitorAssist = dictionary.get("firstInhibitorAssist", False)
-        self.firstInhibitorKill = dictionary.get("firstInhibitorKill", False)
-        self.firstTowerAssist = dictionary.get("firstTowerAssist", False)
-        self.firstTowerKill = dictionary.get("firstTowerKill", False)
-        self.goldEarned = dictionary.get("goldEarned", 0)
-        self.goldSpent = dictionary.get("goldSpent", 0)
-        self.inhibitorKills = dictionary.get("inhibitorKills", 0)
-        self.item0 = dictionary.get("item0", 0)
-        self.item1 = dictionary.get("item1", 0)
-        self.item2 = dictionary.get("item2", 0)
-        self.item3 = dictionary.get("item3", 0)
-        self.item4 = dictionary.get("item4", 0)
-        self.item5 = dictionary.get("item5", 0)
-        self.item6 = dictionary.get("item6", 0)
-        self.killingSprees = dictionary.get("killingSprees", 0)
+##        self.doubleKills = dictionary.get("doubleKills", 0)
+##        self.firstBloodAssist = dictionary.get("firstBloodAssist", False)
+##        self.firstBloodKill = dictionary.get("firstBloodKill", False)
+##        self.firstInhibitorAssist = dictionary.get("firstInhibitorAssist", False)
+##        self.firstInhibitorKill = dictionary.get("firstInhibitorKill", False)
+##        self.firstTowerAssist = dictionary.get("firstTowerAssist", False)
+##        self.firstTowerKill = dictionary.get("firstTowerKill", False)
+##        self.goldEarned = dictionary.get("goldEarned", 0)
+##        self.goldSpent = dictionary.get("goldSpent", 0)
+##        self.inhibitorKills = dictionary.get("inhibitorKills", 0)
+##        self.item0 = dictionary.get("item0", 0)
+##        self.item1 = dictionary.get("item1", 0)
+##        self.item2 = dictionary.get("item2", 0)
+##        self.item3 = dictionary.get("item3", 0)
+##        self.item4 = dictionary.get("item4", 0)
+##        self.item5 = dictionary.get("item5", 0)
+##        self.item6 = dictionary.get("item6", 0)
+##        self.killingSprees = dictionary.get("killingSprees", 0)
         self.kills = dictionary.get("kills", 0)
-        self.largestCriticalStrike = dictionary.get("largestCriticalStrike", 0)
-        self.largestKillingSpree = dictionary.get("largestKillingSpree", 0)
-        self.largestMultiKill = dictionary.get("largestMultiKill", 0)
-        self.magicDamageDealt = dictionary.get("magicDamageDealt", 0)
-        self.magicDamageDealtToChampions = dictionary.get("magicDamageDealtToChampions", 0)
-        self.magicDamageTaken = dictionary.get("magicDamageTaken", 0)
-        self.minionsKilled = dictionary.get("minionsKilled", 0)
-        self.neutralMinionsKilled = dictionary.get("neutralMinionsKilled", 0)
-        self.neutralMinionsKilledEnemyJungle = dictionary.get("neutralMinionsKilledEnemyJungle", 0)
-        self.neutralMinionsKilledTeamJungle = dictionary.get("neutralMinionsKilledTeamJungle", 0)
-        self.nodeCapture = dictionary.get("nodeCapture", 0)
-        self.nodeCaptureAssist = dictionary.get("nodeCaptureAssist", 0)
-        self.nodeNeutralize = dictionary.get("nodeNeutralize", 0)
-        self.nodeNeutralizeAssist = dictionary.get("nodeNeutralizeAssist", 0)
-        self.objectivePlayerScore = dictionary.get("objectivePlayerScore", 0)
-        self.pentaKills = dictionary.get("pentaKills", 0)
-        self.physicalDamageDealt = dictionary.get("physicalDamageDealt", 0)
-        self.physicalDamageDealtToChampions = dictionary.get("physicalDamageDealtToChampions", 0)
-        self.physicalDamageTaken = dictionary.get("physicalDamageTaken", 0)
-        self.quadraKills = dictionary.get("quadraKills", 0)
-        self.sightWardsBoughtInGame = dictionary.get("sightWardsBoughtInGame", 0)
-        self.teamObjective = dictionary.get("teamObjective", 0)
-        self.totalDamageDealt = dictionary.get("totalDamageDealt", 0)
-        self.totalDamageDealtToChampions = dictionary.get("totalDamageDealtToChampions", 0)
-        self.totalDamageTaken = dictionary.get("totalDamageTaken", 0)
-        self.totalHeal = dictionary.get("totalHeal", 0)
-        self.totalPlayerScore = dictionary.get("totalPlayerScore", 0)
-        self.totalScoreRank = dictionary.get("totalScoreRank", 0)
-        self.totalTimeCrowdControlDealt = dictionary.get("totalTimeCrowdControlDealt", 0)
-        self.totalUnitsHealed = dictionary.get("totalUnitsHealed", 0)
-        self.towerKills = dictionary.get("towerKills", 0)
-        self.tripleKills = dictionary.get("tripleKills", 0)
-        self.trueDamageDealt = dictionary.get("trueDamageDealt", 0)
-        self.trueDamageDealtToChampions = dictionary.get("trueDamageDealtToChampions", 0)
-        self.trueDamageTaken = dictionary.get("trueDamageTaken", 0)
-        self.unrealKills = dictionary.get("unrealKills", 0)
-        self.visionWardsBoughtInGame = dictionary.get("visionWardsBoughtInGame", 0)
-        self.wardsKilled = dictionary.get("wardsKilled", 0)
+##        self.largestCriticalStrike = dictionary.get("largestCriticalStrike", 0)
+##        self.largestKillingSpree = dictionary.get("largestKillingSpree", 0)
+##        self.largestMultiKill = dictionary.get("largestMultiKill", 0)
+##        self.magicDamageDealt = dictionary.get("magicDamageDealt", 0)
+##        self.magicDamageDealtToChampions = dictionary.get("magicDamageDealtToChampions", 0)
+##        self.magicDamageTaken = dictionary.get("magicDamageTaken", 0)
+##        self.minionsKilled = dictionary.get("minionsKilled", 0)
+##        self.neutralMinionsKilled = dictionary.get("neutralMinionsKilled", 0)
+##        self.neutralMinionsKilledEnemyJungle = dictionary.get("neutralMinionsKilledEnemyJungle", 0)
+##        self.neutralMinionsKilledTeamJungle = dictionary.get("neutralMinionsKilledTeamJungle", 0)
+##        self.nodeCapture = dictionary.get("nodeCapture", 0)
+##        self.nodeCaptureAssist = dictionary.get("nodeCaptureAssist", 0)
+##        self.nodeNeutralize = dictionary.get("nodeNeutralize", 0)
+##        self.nodeNeutralizeAssist = dictionary.get("nodeNeutralizeAssist", 0)
+##        self.objectivePlayerScore = dictionary.get("objectivePlayerScore", 0)
+##        self.pentaKills = dictionary.get("pentaKills", 0)
+##        self.physicalDamageDealt = dictionary.get("physicalDamageDealt", 0)
+##        self.physicalDamageDealtToChampions = dictionary.get("physicalDamageDealtToChampions", 0)
+##        self.physicalDamageTaken = dictionary.get("physicalDamageTaken", 0)
+##        self.quadraKills = dictionary.get("quadraKills", 0)
+##        self.sightWardsBoughtInGame = dictionary.get("sightWardsBoughtInGame", 0)
+##        self.teamObjective = dictionary.get("teamObjective", 0)
+##        self.totalDamageDealt = dictionary.get("totalDamageDealt", 0)
+##        self.totalDamageDealtToChampions = dictionary.get("totalDamageDealtToChampions", 0)
+##        self.totalDamageTaken = dictionary.get("totalDamageTaken", 0)
+##        self.totalHeal = dictionary.get("totalHeal", 0)
+##        self.totalPlayerScore = dictionary.get("totalPlayerScore", 0)
+##        self.totalScoreRank = dictionary.get("totalScoreRank", 0)
+##        self.totalTimeCrowdControlDealt = dictionary.get("totalTimeCrowdControlDealt", 0)
+##        self.totalUnitsHealed = dictionary.get("totalUnitsHealed", 0)
+##        self.towerKills = dictionary.get("towerKills", 0)
+##        self.tripleKills = dictionary.get("tripleKills", 0)
+##        self.trueDamageDealt = dictionary.get("trueDamageDealt", 0)
+##        self.trueDamageDealtToChampions = dictionary.get("trueDamageDealtToChampions", 0)
+##        self.trueDamageTaken = dictionary.get("trueDamageTaken", 0)
+##        self.unrealKills = dictionary.get("unrealKills", 0)
+##        self.visionWardsBoughtInGame = dictionary.get("visionWardsBoughtInGame", 0)
+##        self.wardsKilled = dictionary.get("wardsKilled", 0)
         self.wardsPlaced = dictionary.get("wardsPlaced", 0)
         self.winner = dictionary.get("winner", False)
 
@@ -296,58 +298,58 @@ class ParticipantTimeline(cassiopeia.type.dto.common.CassiopeiaDto):
         timeline (ParticipantTimeline): timeline data. Delta fields refer to values for the specified period (e.g., the gold per minute over the first 10 minutes of the game versus the second 20 minutes of the game. Diffs fields refer to the deltas versus the calculated lane opponent(s).
     """
     def __init__(self, dictionary):
-        val = dictionary.get("ancientGolemAssistsPerMinCounts", None)
-        self.ancientGolemAssistsPerMinCounts = ParticipantTimelineData(val, "ancientGolemAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("ancientGolemKillsPerMinCounts", None)
-        self.ancientGolemKillsPerMinCounts = ParticipantTimelineData(val, "ancientGolemKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("assistedLaneDeathsPerMinDeltas", None)
-        self.assistedLaneDeathsPerMinDeltas = ParticipantTimelineData(val, "assistedLaneDeathsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("assistedLaneKillsPerMinDeltas", None)
-        self.assistedLaneKillsPerMinDeltas = ParticipantTimelineData(val, "assistedLaneKillsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("baronAssistsPerMinCounts", None)
-        self.baronAssistsPerMinCounts = ParticipantTimelineData(val, "baronAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("baronKillsPerMinCounts", None)
-        self.baronKillsPerMinCounts = ParticipantTimelineData(val, "baronKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("creepsPerMinDeltas", None)
-        self.creepsPerMinDeltas = ParticipantTimelineData(val, "creepsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("csDiffPerMinDeltas", None)
-        self.csDiffPerMinDeltas = ParticipantTimelineData(val, "csDiffPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("damageTakenDiffPerMinDeltas", None)
-        self.damageTakenDiffPerMinDeltas = ParticipantTimelineData(val, "damageTakenDiffPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("damageTakenPerMinDeltas", None)
-        self.damageTakenPerMinDeltas = ParticipantTimelineData(val, "damageTakenPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("dragonAssistsPerMinCounts", None)
-        self.dragonAssistsPerMinCounts = ParticipantTimelineData(val, "dragonAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("dragonKillsPerMinCounts", None)
-        self.dragonKillsPerMinCounts = ParticipantTimelineData(val, "dragonKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("elderLizardAssistsPerMinCounts", None)
-        self.elderLizardAssistsPerMinCounts = ParticipantTimelineData(val, "elderLizardAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("elderLizardKillsPerMinCounts", None)
-        self.elderLizardKillsPerMinCounts = ParticipantTimelineData(val, "elderLizardKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("goldPerMinDeltas", None)
-        self.goldPerMinDeltas = ParticipantTimelineData(val, "goldPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("inhibitorAssistsPerMinCounts", None)
-        self.inhibitorAssistsPerMinCounts = ParticipantTimelineData(val, "inhibitorAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("inhibitorKillsPerMinCounts", None)
-        self.inhibitorKillsPerMinCounts = ParticipantTimelineData(val, "inhibitorKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("ancientGolemAssistsPerMinCounts", None)
+##        self.ancientGolemAssistsPerMinCounts = ParticipantTimelineData(val, "ancientGolemAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("ancientGolemKillsPerMinCounts", None)
+##        self.ancientGolemKillsPerMinCounts = ParticipantTimelineData(val, "ancientGolemKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("assistedLaneDeathsPerMinDeltas", None)
+##        self.assistedLaneDeathsPerMinDeltas = ParticipantTimelineData(val, "assistedLaneDeathsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("assistedLaneKillsPerMinDeltas", None)
+##        self.assistedLaneKillsPerMinDeltas = ParticipantTimelineData(val, "assistedLaneKillsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("baronAssistsPerMinCounts", None)
+##        self.baronAssistsPerMinCounts = ParticipantTimelineData(val, "baronAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("baronKillsPerMinCounts", None)
+##        self.baronKillsPerMinCounts = ParticipantTimelineData(val, "baronKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("creepsPerMinDeltas", None)
+##        self.creepsPerMinDeltas = ParticipantTimelineData(val, "creepsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("csDiffPerMinDeltas", None)
+##        self.csDiffPerMinDeltas = ParticipantTimelineData(val, "csDiffPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("damageTakenDiffPerMinDeltas", None)
+##        self.damageTakenDiffPerMinDeltas = ParticipantTimelineData(val, "damageTakenDiffPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("damageTakenPerMinDeltas", None)
+##        self.damageTakenPerMinDeltas = ParticipantTimelineData(val, "damageTakenPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("dragonAssistsPerMinCounts", None)
+##        self.dragonAssistsPerMinCounts = ParticipantTimelineData(val, "dragonAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("dragonKillsPerMinCounts", None)
+##        self.dragonKillsPerMinCounts = ParticipantTimelineData(val, "dragonKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("elderLizardAssistsPerMinCounts", None)
+##        self.elderLizardAssistsPerMinCounts = ParticipantTimelineData(val, "elderLizardAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("elderLizardKillsPerMinCounts", None)
+##        self.elderLizardKillsPerMinCounts = ParticipantTimelineData(val, "elderLizardKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("goldPerMinDeltas", None)
+##        self.goldPerMinDeltas = ParticipantTimelineData(val, "goldPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("inhibitorAssistsPerMinCounts", None)
+##        self.inhibitorAssistsPerMinCounts = ParticipantTimelineData(val, "inhibitorAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("inhibitorKillsPerMinCounts", None)
+##        self.inhibitorKillsPerMinCounts = ParticipantTimelineData(val, "inhibitorKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
         self.lane = dictionary.get("lane", "")
         self.role = dictionary.get("role", "")
-        val = dictionary.get("towerAssistsPerMinCounts", None)
-        self.towerAssistsPerMinCounts = ParticipantTimelineData(val, "towerAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("towerKillsPerMinCounts", None)
-        self.towerKillsPerMinCounts = ParticipantTimelineData(val, "towerKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("towerKillsPerMinDeltas", None)
-        self.towerKillsPerMinDeltas = ParticipantTimelineData(val, "towerKillsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("vilemawAssistsPerMinCounts", None)
-        self.vilemawAssistsPerMinCounts = ParticipantTimelineData(val, "vilemawAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("vilemawKillsPerMinCounts", None)
-        self.vilemawKillsPerMinCounts = ParticipantTimelineData(val, "vilemawKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("wardsPerMinDeltas", None)
-        self.wardsPerMinDeltas = ParticipantTimelineData(val, "wardsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("xpDiffPerMinDeltas", None)
-        self.xpDiffPerMinDeltas = ParticipantTimelineData(val, "xpDiffPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
-        val = dictionary.get("xpPerMinDeltas", None)
-        self.xpPerMinDeltas = ParticipantTimelineData(val, "xpPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("towerAssistsPerMinCounts", None)
+##        self.towerAssistsPerMinCounts = ParticipantTimelineData(val, "towerAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("towerKillsPerMinCounts", None)
+##        self.towerKillsPerMinCounts = ParticipantTimelineData(val, "towerKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("towerKillsPerMinDeltas", None)
+##        self.towerKillsPerMinDeltas = ParticipantTimelineData(val, "towerKillsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("vilemawAssistsPerMinCounts", None)
+##        self.vilemawAssistsPerMinCounts = ParticipantTimelineData(val, "vilemawAssistsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("vilemawKillsPerMinCounts", None)
+##        self.vilemawKillsPerMinCounts = ParticipantTimelineData(val, "vilemawKillsPerMinCounts") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("wardsPerMinDeltas", None)
+##        self.wardsPerMinDeltas = ParticipantTimelineData(val, "wardsPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("xpDiffPerMinDeltas", None)
+##        self.xpDiffPerMinDeltas = ParticipantTimelineData(val, "xpDiffPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
+##        val = dictionary.get("xpPerMinDeltas", None)
+##        self.xpPerMinDeltas = ParticipantTimelineData(val, "xpPerMinDeltas") if val and not isinstance(val, ParticipantTimelineData) else val
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -358,8 +360,9 @@ class Rune(cassiopeia.type.dto.common.CassiopeiaDto):
         player (Player): player information
     """
     def __init__(self, dictionary):
-        self.rank = dictionary.get("rank", 0)
-        self.runeId = dictionary.get("runeId", 0)
+##        self.rank = dictionary.get("rank", 0)
+##        self.runeId = dictionary.get("runeId", 0)
+        pass
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -398,8 +401,9 @@ class BannedChampion(cassiopeia.type.dto.common.CassiopeiaDto):
         frames (list<Frame>): list of timeline frames for the game
     """
     def __init__(self, dictionary):
-        self.championId = dictionary.get("championId", 0)
-        self.pickTurn = dictionary.get("pickTurn", 0)
+##        self.championId = dictionary.get("championId", 0)
+##        self.pickTurn = dictionary.get("pickTurn", 0)
+        pass
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -484,10 +488,10 @@ class ParticipantTimelineData(cassiopeia.type.dto.common.CassiopeiaDto):
         winner (bool): flag indicating whether or not the participant won
     """
     def __init__(self, dictionary, type_=None):
-        self.tenToTwenty = dictionary.get("tenToTwenty", 0.0)
-        self.thirtyToEnd = dictionary.get("thirtyToEnd", 0.0)
-        self.twentyToThirty = dictionary.get("twentyToThirty", 0.0)
-        self.zeroToTen = dictionary.get("zeroToTen", 0.0)
+##        self.tenToTwenty = dictionary.get("tenToTwenty", 0.0)
+##        self.thirtyToEnd = dictionary.get("thirtyToEnd", 0.0)
+##        self.twentyToThirty = dictionary.get("twentyToThirty", 0.0)
+##        self.zeroToTen = dictionary.get("zeroToTen", 0.0)
         self._type = type_
 
 
