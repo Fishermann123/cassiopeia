@@ -1712,6 +1712,6 @@ def _sa_rebind_all():
     Ban.dto_type = cassiopeia.type.dto.match.BannedChampion
     Frame.dto_type = cassiopeia.type.dto.match.Frame
     ParticipantTimelineData.dto_type = cassiopeia.type.dto.match.ParticipantTimelineData
-    Event.dto_type = cassiopeia.type.dto.match.Event
-    ParticipantFrame.dto_type = cassiopeia.type.dto.match.ParticipantFrame
-    Position.dto_type = cassiopeia.type.dto.match.Position
+    #Event.dto_type = cassiopeia.type.dto.match.Event
+    #ParticipantFrame.dto_type = cassiopeia.type.dto.match.ParticipantFrame
+    #Position.dto_type = cassiopeia.type.dto.match.Position
