@@ -387,8 +387,8 @@ class Player(cassiopeia.type.dto.common.CassiopeiaDto):
         winner (bool): flag indicating whether or not the team won
     """
     def __init__(self, dictionary):
-        self.matchHistoryUri = dictionary.get("matchHistoryUri", "")
-        self.profileIcon = dictionary.get("profileIcon", 0)
+        #self.matchHistoryUri = dictionary.get("matchHistoryUri", "")
+        #self.profileIcon = dictionary.get("profileIcon", 0)
         self.summonerId = dictionary.get("summonerId", 0)
         self.summonerName = dictionary.get("summonerName", "")
 
