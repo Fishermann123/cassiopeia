@@ -597,18 +597,18 @@ def _sa_bind_match_detail():
     class MatchDetail(MatchDetail, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchDetail"
         mapId = sqlalchemy.Column(sqlalchemy.Integer)
-        matchCreation = sqlalchemy.Column(sqlalchemy.BigInteger)
-        matchDuration = sqlalchemy.Column(sqlalchemy.Integer)
+        #matchCreation = sqlalchemy.Column(sqlalchemy.BigInteger)
+        #matchDuration = sqlalchemy.Column(sqlalchemy.Integer)
         matchId = sqlalchemy.Column(sqlalchemy.BigInteger, primary_key=True)
-        matchMode = sqlalchemy.Column(sqlalchemy.String(30))
-        matchType = sqlalchemy.Column(sqlalchemy.String(30))
-        matchVersion = sqlalchemy.Column(sqlalchemy.String(30))
+        #matchMode = sqlalchemy.Column(sqlalchemy.String(30))
+        #matchType = sqlalchemy.Column(sqlalchemy.String(30))
+        #matchVersion = sqlalchemy.Column(sqlalchemy.String(30))
         participantIdentities = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantIdentity", cascade="all, delete-orphan", passive_deletes=True)
         participants = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Participant", cascade="all, delete-orphan", passive_deletes=True)
-        platformId = sqlalchemy.Column(sqlalchemy.String(30))
-        queueType = sqlalchemy.Column(sqlalchemy.String(30))
+        #platformId = sqlalchemy.Column(sqlalchemy.String(30))
+        #queueType = sqlalchemy.Column(sqlalchemy.String(30))
         region = sqlalchemy.Column(sqlalchemy.String(30))
-        season = sqlalchemy.Column(sqlalchemy.String(30))
+        #season = sqlalchemy.Column(sqlalchemy.String(30))
         teams = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Team", cascade="all, delete-orphan", passive_deletes=True)
         timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Timeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
 
@@ -619,13 +619,13 @@ def _sa_bind_participant():
     @cassiopeia.type.core.common.inheritdocs
     class Participant(Participant, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchParticipant"
-        championId = sqlalchemy.Column(sqlalchemy.Integer)
-        highestAchievedSeasonTier = sqlalchemy.Column(sqlalchemy.String(30))
+        #championId = sqlalchemy.Column(sqlalchemy.Integer)
+        #highestAchievedSeasonTier = sqlalchemy.Column(sqlalchemy.String(30))
         masteries = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Mastery", cascade="all, delete-orphan", passive_deletes=True)
         participantId = sqlalchemy.Column(sqlalchemy.Integer)
         runes = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Rune", cascade="all, delete-orphan", passive_deletes=True)
-        spell1Id = sqlalchemy.Column(sqlalchemy.Integer)
-        spell2Id = sqlalchemy.Column(sqlalchemy.Integer)
+        #spell1Id = sqlalchemy.Column(sqlalchemy.Integer)
+        #spell2Id = sqlalchemy.Column(sqlalchemy.Integer)
         stats = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantStats", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
         teamId = sqlalchemy.Column(sqlalchemy.Integer)
         timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantTimeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
@@ -700,7 +700,7 @@ def _sa_bind_participant_stats():
     class ParticipantStats(ParticipantStats, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchParticipantStats"
         assists = sqlalchemy.Column(sqlalchemy.Integer)
-        champLevel = sqlalchemy.Column(sqlalchemy.Integer)
+        #champLevel = sqlalchemy.Column(sqlalchemy.Integer)
         #combatPlayerScore = sqlalchemy.Column(sqlalchemy.Integer)
         deaths = sqlalchemy.Column(sqlalchemy.Integer)
         #doubleKills = sqlalchemy.Column(sqlalchemy.Integer)
@@ -821,8 +821,8 @@ def _sa_bind_player():
     @cassiopeia.type.core.common.inheritdocs
     class Player(Player, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchPlayer"
-        matchHistoryUri = sqlalchemy.Column(sqlalchemy.String(50))
-        profileIcon = sqlalchemy.Column(sqlalchemy.Integer)
+        #matchHistoryUri = sqlalchemy.Column(sqlalchemy.String(50))
+        #profileIcon = sqlalchemy.Column(sqlalchemy.Integer)
         summonerId = sqlalchemy.Column(sqlalchemy.Integer)
         summonerName = sqlalchemy.Column(sqlalchemy.String(30))
         _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
