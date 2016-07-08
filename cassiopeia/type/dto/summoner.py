@@ -139,9 +139,9 @@ class Summoner(cassiopeia.type.dto.common.CassiopeiaDto):
     def __init__(self, dictionary):
         self.id = dictionary.get("id", 0)
         self.name = dictionary.get("name", "")
-        self.profileIconId = dictionary.get("profileIconId", 0)
-        self.revisionDate = dictionary.get("revisionDate", 0)
-        self.summonerLevel = dictionary.get("summonerLevel", 0)
+        #self.profileIconId = dictionary.get("profileIconId", 0)
+        #self.revisionDate = dictionary.get("revisionDate", 0)
+        #self.summonerLevel = dictionary.get("summonerLevel", 0)
 
 
 ###############################
@@ -203,9 +203,9 @@ def _sa_bind_summoner():
         __tablename__ = "Summoner"
         id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
         name = sqlalchemy.Column(sqlalchemy.String(30))
-        profileIconId = sqlalchemy.Column(sqlalchemy.Integer)
-        revisionDate = sqlalchemy.Column(sqlalchemy.BigInteger)
-        summonerLevel = sqlalchemy.Column(sqlalchemy.Integer)
+        #profileIconId = sqlalchemy.Column(sqlalchemy.Integer)
+        #revisionDate = sqlalchemy.Column(sqlalchemy.BigInteger)
+        #summonerLevel = sqlalchemy.Column(sqlalchemy.Integer)
 
 
 def _sa_bind_all():
