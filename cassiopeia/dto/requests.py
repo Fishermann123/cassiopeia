@@ -96,10 +96,10 @@ def make_request(request, method, params={}, payload=None, static=False, include
         if e.code == 429 and limiter:
             print("SERVICE 429" if "X-Rate-Limit-Type" not in e.headers else "{} 429".format(e.headers["X-Rate-Limit-Type"]))
             if "X-Rate-Limit-Type" not in e.headers or e.headers["X-Rate-Limit-Type"] == "service":
-               time.sleep(1)  # Backoff for 1 second before retrying
-           else:
-               retry_after = 1
-               if e.headers["Retry-After"]:
+                time.sleep(1)  # Backoff for 1 second before retrying
+            else:
+                retry_after = 1
+                if e.headers["Retry-After"]:
                     retry_after += int(e.headers["Retry-After"])
 
                 limiter.reset_in(retry_after)
