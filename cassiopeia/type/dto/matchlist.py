@@ -38,14 +38,15 @@ class MatchReference(cassiopeia.type.dto.common.CassiopeiaDto):
     Gets all champion IDs contained in this object
     """
     def __init__(self, dictionary):
-        self.champion = dictionary.get("champion", 0)
-        self.lane = dictionary.get("lane", "")
-        self.matchId = dictionary.get("matchId", 0)
-        self.platformId = dictionary.get("platformId", "")
-        self.queue = dictionary.get("queue", "")
-        self.role = dictionary.get("role", "")
-        self.season = dictionary.get("season", "")
-        self.timestamp = dictionary.get("timestamp", 0)
+        #self.champion = dictionary.get("champion", 0)
+        #self.lane = dictionary.get("lane", "")
+        #self.matchId = dictionary.get("matchId", 0)
+        #self.platformId = dictionary.get("platformId", "")
+        #self.queue = dictionary.get("queue", "")
+        #self.role = dictionary.get("role", "")
+        #self.season = dictionary.get("season", "")
+        #self.timestamp = dictionary.get("timestamp", 0)
+        pass
 
 
 ###############################
