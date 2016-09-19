@@ -10,20 +10,20 @@ import cassiopeia.dto.staticdataapi
 import cassiopeia.core.requests
 import cassiopeia.type.core.common
 import cassiopeia.type.api.store
-from cassiopeia.core.championapi import *
-from cassiopeia.core.championmasteryapi import *
-from cassiopeia.core.currentgameapi import *
-from cassiopeia.core.featuredgamesapi import *
-from cassiopeia.core.gameapi import *
-from cassiopeia.core.leagueapi import *
+#from cassiopeia.core.championapi import *
+#from cassiopeia.core.championmasteryapi import *
+#from cassiopeia.core.currentgameapi import *
+#from cassiopeia.core.featuredgamesapi import *
+#from cassiopeia.core.gameapi import *
+#from cassiopeia.core.leagueapi import *
 from cassiopeia.core.matchapi import *
 from cassiopeia.core.matchlistapi import *
-from cassiopeia.core.staticdataapi import *
-from cassiopeia.core.statusapi import *
-from cassiopeia.core.statsapi import *
+#from cassiopeia.core.staticdataapi import *
+#from cassiopeia.core.statusapi import *
+#from cassiopeia.core.statsapi import *
 from cassiopeia.core.summonerapi import *
-from cassiopeia.core.teamapi import *
-from cassiopeia.core.tournamentapi import *
+#from cassiopeia.core.teamapi import *
+#from cassiopeia.core.tournamentapi import *
 
 
 def set_api_key(key):
