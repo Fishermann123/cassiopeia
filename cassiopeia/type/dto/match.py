@@ -29,7 +29,7 @@ class MatchDetail(cassiopeia.type.dto.common.CassiopeiaDto):
         timeline (Timeline): match timeline data (not included by default)
     """
     def __init__(self, dictionary):
-        self.mapId = dictionary.get("mapId", 0)
+##        self.mapId = dictionary.get("mapId", 0)
 ##        self.matchCreation = dictionary.get("matchCreation", 0)
 ##        self.matchDuration = dictionary.get("matchDuration", 0)
         self.matchId = dictionary.get("matchId", 0)
@@ -40,7 +40,7 @@ class MatchDetail(cassiopeia.type.dto.common.CassiopeiaDto):
         self.participants = [(Participant(p) if not isinstance(p, Participant) else p) for p in dictionary.get("participants", []) if p]
 ##        self.platformId = dictionary.get("platformId", "")
 ##        self.queueType = dictionary.get("queueType", "")
-        self.region = dictionary.get("region", "")
+##        self.region = dictionary.get("region", "")
 ##        self.season = dictionary.get("season", "")
         self.teams = [(Team(t) if not isinstance(t, Team) else t) for t in dictionary.get("teams", []) if t]
         val = dictionary.get("timeline", None)
@@ -390,7 +390,7 @@ class Player(cassiopeia.type.dto.common.CassiopeiaDto):
         #self.matchHistoryUri = dictionary.get("matchHistoryUri", "")
         #self.profileIcon = dictionary.get("profileIcon", 0)
         self.summonerId = dictionary.get("summonerId", 0)
-        self.summonerName = dictionary.get("summonerName", "")
+        #self.summonerName = dictionary.get("summonerName", "")
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -596,7 +596,7 @@ def _sa_bind_match_detail():
     @cassiopeia.type.core.common.inheritdocs
     class MatchDetail(MatchDetail, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchDetail"
-        mapId = sqlalchemy.Column(sqlalchemy.Integer)
+        #mapId = sqlalchemy.Column(sqlalchemy.Integer)
         #matchCreation = sqlalchemy.Column(sqlalchemy.BigInteger)
         #matchDuration = sqlalchemy.Column(sqlalchemy.Integer)
         matchId = sqlalchemy.Column(sqlalchemy.BigInteger, primary_key=True)
@@ -607,7 +607,7 @@ def _sa_bind_match_detail():
         participants = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Participant", cascade="all, delete-orphan", passive_deletes=True)
         #platformId = sqlalchemy.Column(sqlalchemy.String(30))
         #queueType = sqlalchemy.Column(sqlalchemy.String(30))
-        region = sqlalchemy.Column(sqlalchemy.String(30))
+        #region = sqlalchemy.Column(sqlalchemy.String(30))
         #season = sqlalchemy.Column(sqlalchemy.String(30))
         teams = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Team", cascade="all, delete-orphan", passive_deletes=True)
         timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Timeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
@@ -824,7 +824,7 @@ def _sa_bind_player():
         #matchHistoryUri = sqlalchemy.Column(sqlalchemy.String(50))
         #profileIcon = sqlalchemy.Column(sqlalchemy.Integer)
         summonerId = sqlalchemy.Column(sqlalchemy.Integer)
-        summonerName = sqlalchemy.Column(sqlalchemy.String(30))
+        #summonerName = sqlalchemy.Column(sqlalchemy.String(30))
         _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
         _participant_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchParticipantIdentity._id", ondelete="CASCADE"))
 
