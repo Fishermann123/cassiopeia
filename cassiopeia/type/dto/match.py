@@ -218,7 +218,7 @@ class ParticipantStats(cassiopeia.type.dto.common.CassiopeiaDto):
     """
     def __init__(self, dictionary):
         self.assists = dictionary.get("assists", 0)
-##        self.champLevel = dictionary.get("champLevel", 0)
+        self.champLevel = dictionary.get("champLevel", 0)
 ##        self.combatPlayerScore = dictionary.get("combatPlayerScore", 0)
         self.deaths = dictionary.get("deaths", 0)
 ##        self.doubleKills = dictionary.get("doubleKills", 0)
@@ -700,7 +700,7 @@ def _sa_bind_participant_stats():
     class ParticipantStats(ParticipantStats, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchParticipantStats"
         assists = sqlalchemy.Column(sqlalchemy.Integer)
-        #champLevel = sqlalchemy.Column(sqlalchemy.Integer)
+        champLevel = sqlalchemy.Column(sqlalchemy.Integer)
         #combatPlayerScore = sqlalchemy.Column(sqlalchemy.Integer)
         deaths = sqlalchemy.Column(sqlalchemy.Integer)
         #doubleKills = sqlalchemy.Column(sqlalchemy.Integer)
