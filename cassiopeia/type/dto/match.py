@@ -661,10 +661,10 @@ def _sa_bind_team():
         #firstInhibitor = sqlalchemy.Column(sqlalchemy.Boolean)
         #firstTower = sqlalchemy.Column(sqlalchemy.Boolean)
         #inhibitorKills = sqlalchemy.Column(sqlalchemy.Integer)
-        teamId = sqlalchemy.Column(sqlalchemy.Integer)
+        #teamId = sqlalchemy.Column(sqlalchemy.Integer)
         #towerKills = sqlalchemy.Column(sqlalchemy.Integer)
         #vilemawKills = sqlalchemy.Column(sqlalchemy.Integer)
-        winner = sqlalchemy.Column(sqlalchemy.Boolean)
+        #winner = sqlalchemy.Column(sqlalchemy.Boolean)
         _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
         _match_id = sqlalchemy.Column(sqlalchemy.BigInteger, sqlalchemy.ForeignKey("MatchDetail.matchId", ondelete="CASCADE"))
 
