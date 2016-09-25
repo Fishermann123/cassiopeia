@@ -237,7 +237,7 @@ if cassiopeia.type.dto.common.sqlalchemy_imported:
             _sa_bind_typesystem()
             self.db = sqlalchemy.create_engine("{flavor}://{username}:{password}@{host}/{database}".format(flavor=flavor, host=host, database=database, username=username, password=password))
             cassiopeia.type.dto.common.BaseDB.metadata.create_all(self.db)
-            self.session = sqlalchemy.orm.sessionmaker(bind=self.db)()
+            self.session = sqlalchemy.orm.sessionmaker(bind=self.db)(expire_on_commit=False)
 
         def has_all(self, class_):
             class_name = HasAllStatus.get_name(class_)
