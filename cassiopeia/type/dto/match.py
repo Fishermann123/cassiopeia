@@ -217,10 +217,10 @@ class ParticipantStats(cassiopeia.type.dto.common.CassiopeiaDto):
     Gets all summoner spell IDs contained in this object
     """
     def __init__(self, dictionary):
-        self.assists = dictionary.get("assists", 0)
+##        self.assists = dictionary.get("assists", 0)
         self.champLevel = dictionary.get("champLevel", 0)
 ##        self.combatPlayerScore = dictionary.get("combatPlayerScore", 0)
-        self.deaths = dictionary.get("deaths", 0)
+##        self.deaths = dictionary.get("deaths", 0)
 ##        self.doubleKills = dictionary.get("doubleKills", 0)
 ##        self.firstBloodAssist = dictionary.get("firstBloodAssist", False)
 ##        self.firstBloodKill = dictionary.get("firstBloodKill", False)
@@ -239,7 +239,7 @@ class ParticipantStats(cassiopeia.type.dto.common.CassiopeiaDto):
 ##        self.item5 = dictionary.get("item5", 0)
 ##        self.item6 = dictionary.get("item6", 0)
 ##        self.killingSprees = dictionary.get("killingSprees", 0)
-        self.kills = dictionary.get("kills", 0)
+##        self.kills = dictionary.get("kills", 0)
 ##        self.largestCriticalStrike = dictionary.get("largestCriticalStrike", 0)
 ##        self.largestKillingSpree = dictionary.get("largestKillingSpree", 0)
 ##        self.largestMultiKill = dictionary.get("largestMultiKill", 0)
@@ -278,7 +278,7 @@ class ParticipantStats(cassiopeia.type.dto.common.CassiopeiaDto):
 ##        self.unrealKills = dictionary.get("unrealKills", 0)
 ##        self.visionWardsBoughtInGame = dictionary.get("visionWardsBoughtInGame", 0)
 ##        self.wardsKilled = dictionary.get("wardsKilled", 0)
-        self.wardsPlaced = dictionary.get("wardsPlaced", 0)
+##        self.wardsPlaced = dictionary.get("wardsPlaced", 0)
         self.winner = dictionary.get("winner", False)
 
 
@@ -699,10 +699,10 @@ def _sa_bind_participant_stats():
     @cassiopeia.type.core.common.inheritdocs
     class ParticipantStats(ParticipantStats, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchParticipantStats"
-        assists = sqlalchemy.Column(sqlalchemy.Integer)
+        #assists = sqlalchemy.Column(sqlalchemy.Integer)
         champLevel = sqlalchemy.Column(sqlalchemy.Integer)
         #combatPlayerScore = sqlalchemy.Column(sqlalchemy.Integer)
-        deaths = sqlalchemy.Column(sqlalchemy.Integer)
+        #deaths = sqlalchemy.Column(sqlalchemy.Integer)
         #doubleKills = sqlalchemy.Column(sqlalchemy.Integer)
         #firstBloodAssist = sqlalchemy.Column(sqlalchemy.Boolean)
         #firstBloodKill = sqlalchemy.Column(sqlalchemy.Boolean)
@@ -721,7 +721,7 @@ def _sa_bind_participant_stats():
         #item5 = sqlalchemy.Column(sqlalchemy.Integer)
         #item6 = sqlalchemy.Column(sqlalchemy.Integer)
         #killingSprees = sqlalchemy.Column(sqlalchemy.Integer)
-        kills = sqlalchemy.Column(sqlalchemy.Integer)
+        #kills = sqlalchemy.Column(sqlalchemy.Integer)
         #largestCriticalStrike = sqlalchemy.Column(sqlalchemy.Integer)
         #largestKillingSpree = sqlalchemy.Column(sqlalchemy.Integer)
         #largestMultiKill = sqlalchemy.Column(sqlalchemy.Integer)
@@ -760,7 +760,7 @@ def _sa_bind_participant_stats():
         #unrealKills = sqlalchemy.Column(sqlalchemy.Integer)
         #visionWardsBoughtInGame = sqlalchemy.Column(sqlalchemy.Integer)
         #wardsKilled = sqlalchemy.Column(sqlalchemy.Integer)
-        wardsPlaced = sqlalchemy.Column(sqlalchemy.Integer)
+        #wardsPlaced = sqlalchemy.Column(sqlalchemy.Integer)
         winner = sqlalchemy.Column(sqlalchemy.Boolean)
         _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
         _participant_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchParticipant._id", ondelete="CASCADE"))
