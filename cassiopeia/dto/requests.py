@@ -94,13 +94,16 @@ def make_request(request, method, params={}, payload=None, static=False, include
     except urllib.error.HTTPError as e:
         # Reset rate limiter and retry on 429 (rate limit exceeded)
         if e.code == 429 and limiter:
-            print("SERVICE 429" if "X-Rate-Limit-Type" not in e.headers else "{} 429".format(e.headers["X-Rate-Limit-Type"]))
+            #print("SERVICE 429" if "X-Rate-Limit-Type" not in e.headers else "{} 429".format(e.headers["X-Rate-Limit-Type"]))
             if "X-Rate-Limit-Type" not in e.headers or e.headers["X-Rate-Limit-Type"] == "service":
                 time.sleep(1)  # Backoff for 1 second before retrying
+                print("Service 429, sleep 1 second")
             else:
                 retry_after = 1
                 if e.headers["Retry-After"]:
                     retry_after += int(e.headers["Retry-After"])
+                print("Rate limit hit 429, retry after:")
+                print(retry_after)
 
                 limiter.reset_in(retry_after)
             return make_request(request, method, params, payload, static, include_base, tournament)
