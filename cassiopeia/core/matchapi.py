@@ -45,7 +45,7 @@ def get_match(id_):
     match = cassiopeia.type.core.match.Match(match)
     #cassiopeia.core.requests.data_store.store(match, id_)
 
-    print('Finished with match, now return')
+    #print('Finished with match, now return')
     return match
 
 
@@ -88,12 +88,12 @@ def get_matches(ids, include_timeline=False, tournament_code=""):
         summoner_spell_ids = set()
 
     # Make requests to get them
-    print('Set pool')
+    #print('Set pool')
     pool = ThreadPool(20)
     print("Make {0} requests to get the missing matches".format(len(missing)))
     match = pool.map_async(get_match, missing).get()
     print(match)
-    print('Close and join pool')
+    #print('Close and join pool')
     pool.close()
     pool.join()
 
