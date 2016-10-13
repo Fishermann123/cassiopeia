@@ -5,8 +5,10 @@ import cassiopeia.type.core.common
 import cassiopeia.type.core.match
 import cassiopeia.type.core.matchlist
 
+from multiprocessing.dummy import Pool as ThreadPool
 
-def get_match(id_, include_timeline=False, tournament_code=""):
+
+def get_match(id_):
     """
     Gets a match
 
@@ -18,12 +20,15 @@ def get_match(id_, include_timeline=False, tournament_code=""):
     Returns:
         Match: the match
     """
+    include_timeline=False
+    tournament_code=""
+    
     if isinstance(id_, cassiopeia.type.core.matchlist.MatchReference):
         id_ = id_.id
 
-    match = cassiopeia.core.requests.data_store.get(cassiopeia.type.core.match.Match, id_, "matchId")
-    if match and (match.timeline or not include_timeline):
-        return match
+    #match = cassiopeia.core.requests.data_store.get(cassiopeia.type.core.match.Match, id_, "matchId")
+    #if match and (match.timeline or not include_timeline):
+    #    return match
 
     match = cassiopeia.dto.matchapi.get_match(id_, include_timeline, tournament_code)
 
@@ -38,8 +43,12 @@ def get_match(id_, include_timeline=False, tournament_code=""):
         cassiopeia.riotapi.get_summoner_spells() if match.summoner_spell_ids else None
 
     match = cassiopeia.type.core.match.Match(match)
-    cassiopeia.core.requests.data_store.store(match, id_)
+    #cassiopeia.core.requests.data_store.store(match, id_)
+
+    print('Finished with match, now return')
     return match
+
+
 
 
 def get_matches(ids, include_timeline=False, tournament_code=""):
@@ -79,10 +88,20 @@ def get_matches(ids, include_timeline=False, tournament_code=""):
         summoner_spell_ids = set()
 
     # Make requests to get them
+    print('Set pool')
+    pool = ThreadPool(20)
+    print("Make {0} requests to get the missing matches".format(len(missing)))
+    match = pool.map_async(get_match, missing).get()
+    print(match)
+    print('Close and join pool')
+    pool.close()
+    pool.join()
+
+    
     for i in range(len(missing)):
-        match = cassiopeia.type.core.match.Match(cassiopeia.dto.matchapi.get_match(missing[i], include_timeline, tournament_code))
-        matches[loc[i]] = match
-        missing[i] = match
+        #match = cassiopeia.type.core.match.Match(cassiopeia.dto.matchapi.get_match(missing[i], include_timeline, tournament_code))
+        matches[loc[i]] = match[i]
+        missing[i] = match[i]
 
         if cassiopeia.core.requests.load_policy is cassiopeia.type.core.common.LoadPolicy.eager:
             item_ids = item_ids | match.data.item_ids
