@@ -5,6 +5,7 @@ import cassiopeia.type.core.common
 import cassiopeia.type.core.match
 import cassiopeia.type.core.matchlist
 
+import time
 from multiprocessing.dummy import Pool as ThreadPool
 
 
@@ -91,7 +92,10 @@ def get_matches(ids, include_timeline=False, tournament_code=""):
     #print('Set pool')
     pool = ThreadPool(20)
     print("Make {0} requests to get the missing matches".format(len(missing)))
+    pool_time = time.time()
     match = pool.map_async(get_match, missing).get()
+    time_taken = time.time() - pool_time
+    print("Pool closed within {0} seconds".format(time_taken))
     print(match)
     #print('Close and join pool')
     pool.close()
@@ -120,7 +124,10 @@ def get_matches(ids, include_timeline=False, tournament_code=""):
         cassiopeia.riotapi.get_summoners_by_id(list(summoner_ids)) if summoner_ids else None
         cassiopeia.riotapi.get_summoner_spells() if summoner_spell_ids else None
 
+    sql_time = time.time()
     cassiopeia.core.requests.data_store.store(missing, [match.id for match in missing])
+    time_taken = time.time() - sql_time
+    print("SQL data_store finished within {0} seconds".format(time_taken))
     return matches
 
 
