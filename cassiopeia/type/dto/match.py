@@ -43,71 +43,9 @@ class MatchDetail(cassiopeia.type.dto.common.CassiopeiaDto):
 ##        self.region = dictionary.get("region", "")
 ##        self.season = dictionary.get("season", "")
         self.teams = [(Team(t) if not isinstance(t, Team) else t) for t in dictionary.get("teams", []) if t]
-        val = dictionary.get("timeline", None)
-        self.timeline = Timeline(val) if val and not isinstance(val, Timeline) else val
+        #val = dictionary.get("timeline", None)
+        #self.timeline = Timeline(val) if val and not isinstance(val, Timeline) else val
 
-##    @property
-##    def item_ids(self):
-##        """
-##        Gets all item IDs contained in this object
-##        """
-##        ids = set()
-##        for p in self.participants:
-##            s = p.stats
-##            if s.item0:
-##                ids.add(s.item0)
-##            if s.item1:
-##                ids.add(s.item1)
-##            if s.item2:
-##                ids.add(s.item2)
-##            if s.item3:
-##                ids.add(s.item3)
-##            if s.item4:
-##                ids.add(s.item4)
-##            if s.item5:
-##                ids.add(s.item5)
-##            if s.item6:
-##                ids.add(s.item6)
-##        return ids
-##
-##    @property
-##    def champion_ids(self):
-##        """
-##        Gets all item IDs contained in this object
-##        """
-##        ids = set()
-##        for p in self.participants:
-##            if p.championId:
-##                ids.add(p.championId)
-##        for t in self.teams:
-##            for b in t.bans:
-##                if b.championId:
-##                    ids.add(b.championId)
-##        return ids
-##
-##    @property
-##    def mastery_ids(self):
-##        """
-##        Gets all item IDs contained in this object
-##        """
-##        ids = set()
-##        for p in self.participants:
-##            for m in p.masteries:
-##                if m.masteryId:
-##                    ids.add(m.masteryId)
-##        return ids
-##
-##    @property
-##    def rune_ids(self):
-##        """
-##        Gets all item IDs contained in this object
-##        """
-##        ids = set()
-##        for p in self.participants:
-##            for r in p.runes:
-##                if r.runeId:
-##                    ids.add(r.runeId)
-##        return ids
 
     @property
     def summoner_ids(self):
@@ -120,18 +58,7 @@ class MatchDetail(cassiopeia.type.dto.common.CassiopeiaDto):
                 ids.add(p.player.summonerId)
         return ids
 
-##    @property
-##    def summoner_spell_ids(self):
-##        """
-##        Gets all item IDs contained in this object
-##        """
-##        ids = set()
-##        for p in self.participants:
-##            if p.spell1Id:
-##                ids.add(p.spell1Id)
-##            if p.spell2Id:
-##                ids.add(p.spell2Id)
-##        return ids
+
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -150,8 +77,8 @@ class Participant(cassiopeia.type.dto.common.CassiopeiaDto):
         val = dictionary.get("stats", None)
         self.stats = ParticipantStats(val) if val and not isinstance(val, ParticipantStats) else val
         self.teamId = dictionary.get("teamId", 0)
-        val = dictionary.get("timeline", None)
-        self.timeline = ParticipantTimeline(val) if val and not isinstance(val, ParticipantTimeline) else val
+        #val = dictionary.get("timeline", None)
+        #self.timeline = ParticipantTimeline(val) if val and not isinstance(val, ParticipantTimeline) else val
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -189,15 +116,6 @@ class Team(cassiopeia.type.dto.common.CassiopeiaDto):
 ##        self.winner = dictionary.get("winner", False)
         pass
 
-
-@cassiopeia.type.core.common.inheritdocs
-class Timeline(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Gets all rune IDs contained in this object
-    """
-    def __init__(self, dictionary):
-        self.frameInterval = dictionary.get("frameInterval", 0)
-        self.frames = [(Frame(f) if not isinstance(f, Frame) else f) for f in dictionary.get("frames", []) if f]
 
 
 @cassiopeia.type.core.common.inheritdocs
@@ -393,198 +311,7 @@ class Player(cassiopeia.type.dto.common.CassiopeiaDto):
         #self.summonerName = dictionary.get("summonerName", "")
 
 
-@cassiopeia.type.core.common.inheritdocs
-class BannedChampion(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Args:
-        frameInterval (int): time between each returned frame in milliseconds
-        frames (list<Frame>): list of timeline frames for the game
-    """
-    def __init__(self, dictionary):
-##        self.championId = dictionary.get("championId", 0)
-##        self.pickTurn = dictionary.get("pickTurn", 0)
-        pass
 
-
-@cassiopeia.type.core.common.inheritdocs
-class Frame(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Args:
-        masteryId (int): mastery ID
-        rank (int): mastery rank
-    """
-    def __init__(self, dictionary):
-        self.events = [(Event(e) if not isinstance(e, Event) else e) for e in dictionary.get("events", []) if e]
-        self.participantFrames = {i: ParticipantFrame(pf) if not isinstance(pf, ParticipantFrame) else pf for i, pf in dictionary.get("participantFrames", {}).items()}
-        self.timestamp = dictionary.get("timestamp", 0)
-
-
-@cassiopeia.type.core.common.inheritdocs
-class ParticipantTimelineData(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Args:
-        assists (int): number of assists
-        champLevel (int): champion level achieved
-        combatPlayerScore (int): if game was a dominion game, player's combat score, otherwise 0
-        deaths (int): number of deaths
-        doubleKills (int): number of double kills
-        firstBloodAssist (bool): flag indicating if participant got an assist on first blood
-        firstBloodKill (bool): flag indicating if participant got first blood
-        firstInhibitorAssist (bool): flag indicating if participant got an assist on the first inhibitor
-        firstInhibitorKill (bool): flag indicating if participant destroyed the first inhibitor
-        firstTowerAssist (bool): flag indicating if participant got an assist on the first tower
-        firstTowerKill (bool): flag indicating if participant destroyed the first tower
-        goldEarned (int): gold earned
-        goldSpent (int): gold spent
-        inhibitorKills (int): number of inhibitor kills
-        item0 (int): frst item ID
-        item1 (int): second item ID
-        item2 (int): third item ID
-        item3 (int): fourth item ID
-        item4 (int): fifth item ID
-        item5 (int): sixth item ID
-        item6 (int): seventh item ID
-        killingSprees (int): number of killing sprees
-        kills (int): number of kills
-        largestCriticalStrike (int): largest critical strike
-        largestKillingSpree (int): largest killing spree
-        largestMultiKill (int): largest multi kill
-        magicDamageDealt (int): magical damage dealt
-        magicDamageDealtToChampions (int): magical damage dealt to champions
-        magicDamageTaken (int): magic damage taken
-        minionsKilled (int): minions killed
-        neutralMinionsKilled (int): neutral minions killed
-        neutralMinionsKilledEnemyJungle (int): neutral jungle minions killed in the enemy team's jungle
-        neutralMinionsKilledTeamJungle (int): neutral jungle minions killed in your team's jungle
-        nodeCapture (int): if game was a dominion game, number of node captures
-        nodeCaptureAssist (int): if game was a dominion game, number of node capture assists
-        nodeNeutralize (int): if game was a dominion game, number of node neutralizations
-        nodeNeutralizeAssist (int): if game was a dominion game, number of node neutralization assists
-        objectivePlayerScore (int): if game was a dominion game, player's objectives score, otherwise 0
-        pentaKills (int): number of penta kills
-        physicalDamageDealt (int): physical damage dealt
-        physicalDamageDealtToChampions (int): physical damage dealt to champions
-        physicalDamageTaken (int): physical damage taken
-        quadraKills (int): number of quadra kills
-        sightWardsBoughtInGame (int): sight wards purchased
-        teamObjective (int): if game was a dominion game, number of completed team objectives (i.e., quests)
-        totalDamageDealt (int): total damage dealt
-        totalDamageDealtToChampions (int): total damage dealt to champions
-        totalDamageTaken (int): total damage taken
-        totalHeal (int): total heal amount
-        totalPlayerScore (int): if game was a dominion game, player's total score, otherwise 0
-        totalScoreRank (int): if game was a dominion game, team rank of the player's total score (e.g., 1-5)
-        totalTimeCrowdControlDealt (int): total dealt crowd control time
-        totalUnitsHealed (int): total units healed
-        towerKills (int): number of tower kills
-        tripleKills (int): number of triple kills
-        trueDamageDealt (int): true damage dealt
-        trueDamageDealtToChampions (int): true damage dealt to champions
-        trueDamageTaken (int): true damage taken
-        unrealKills (int): number of unreal kills
-        visionWardsBoughtInGame (int): vision wards purchased
-        wardsKilled (int): number of wards killed
-        wardsPlaced (int): number of wards placed
-        winner (bool): flag indicating whether or not the participant won
-    """
-    def __init__(self, dictionary, type_=None):
-##        self.tenToTwenty = dictionary.get("tenToTwenty", 0.0)
-##        self.thirtyToEnd = dictionary.get("thirtyToEnd", 0.0)
-##        self.twentyToThirty = dictionary.get("twentyToThirty", 0.0)
-##        self.zeroToTen = dictionary.get("zeroToTen", 0.0)
-        self._type = type_
-
-
-@cassiopeia.type.core.common.inheritdocs
-class Event(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Args:
-        ancientGolemAssistsPerMinCounts (ParticipantTimelineData): ancient golem assists per minute timeline counts
-        ancientGolemKillsPerMinCounts (ParticipantTimelineData): ancient golem kills per minute timeline counts
-        assistedLaneDeathsPerMinDeltas (ParticipantTimelineData): assisted lane deaths per minute timeline data
-        assistedLaneKillsPerMinDeltas (ParticipantTimelineData): assisted lane kills per minute timeline data
-        baronAssistsPerMinCounts (ParticipantTimelineData): baron assists per minute timeline counts
-        baronKillsPerMinCounts (ParticipantTimelineData): baron kills per minute timeline counts
-        creepsPerMinDeltas (ParticipantTimelineData): creeps per minute timeline data
-        csDiffPerMinDeltas (ParticipantTimelineData): creep score difference per minute timeline data
-        damageTakenDiffPerMinDeltas (ParticipantTimelineData): damage taken difference per minute timeline data
-        damageTakenPerMinDeltas (ParticipantTimelineData): damage taken per minute timeline data
-        dragonAssistsPerMinCounts (ParticipantTimelineData): dragon assists per minute timeline counts
-        dragonKillsPerMinCounts (ParticipantTimelineData): dragon kills per minute timeline counts
-        elderLizardAssistsPerMinCounts (ParticipantTimelineData): elder lizard assists per minute timeline counts
-        elderLizardKillsPerMinCounts (ParticipantTimelineData): elder lizard kills per minute timeline counts
-        goldPerMinDeltas (ParticipantTimelineData): gold per minute timeline data
-        inhibitorAssistsPerMinCounts (ParticipantTimelineData): inhibitor assists per minute timeline counts
-        inhibitorKillsPerMinCounts (ParticipantTimelineData): inhibitor kills per minute timeline counts
-        lane (str): participant's lane (Legal values: MID, MIDDLE, TOP, JUNGLE, BOT, BOTTOM)
-        role (str): participant's role (Legal values: DUO, NONE, SOLO, DUO_CARRY, DUO_SUPPORT)
-        towerAssistsPerMinCounts (ParticipantTimelineData): tower assists per minute timeline counts
-        towerKillsPerMinCounts (ParticipantTimelineData): tower kills per minute timeline counts
-        towerKillsPerMinDeltas (ParticipantTimelineData): tower kills per minute timeline data
-        vilemawAssistsPerMinCounts (ParticipantTimelineData): vilemaw assists per minute timeline counts
-        vilemawKillsPerMinCounts (ParticipantTimelineData): vilemaw kills per minute timeline counts
-        wardsPerMinDeltas (ParticipantTimelineData): wards placed per minute timeline data
-        xpDiffPerMinDeltas (ParticipantTimelineData): experience difference per minute timeline data
-        xpPerMinDeltas (ParticipantTimelineData): experience per minute timeline data
-    """
-    def __init__(self, dictionary):
-        self.ascendedType = dictionary.get("ascendedType", "")
-        self.assistingParticipantIds = dictionary.get("assistingParticipantIds", [])
-        self.buildingType = dictionary.get("buildingType", "")
-        self.creatorId = dictionary.get("creatorId", 0)
-        self.eventType = dictionary.get("eventType", "")
-        self.itemAfter = dictionary.get("itemAfter", 0)
-        self.itemBefore = dictionary.get("itemBefore", 0)
-        self.itemId = dictionary.get("itemId", 0)
-        self.killerId = dictionary.get("killerId", 0)
-        self.laneType = dictionary.get("laneType", "")
-        self.levelUpType = dictionary.get("levelUpType", "")
-        self.monsterType = dictionary.get("monsterType", "")
-        self.participantId = dictionary.get("participantId", 0)
-        self.pointCaptured = dictionary.get("pointCaptured", "")
-        val = dictionary.get("position", None)
-        self.position = Position(val) if val and not isinstance(val, Position) else val
-        self.skillSlot = dictionary.get("skillSlot", 0)
-        self.teamId = dictionary.get("teamId", 0)
-        self.timestamp = dictionary.get("timestamp", 0)
-        self.towerType = dictionary.get("towerType", "")
-        self.victimId = dictionary.get("victimId", 0)
-        self.wardType = dictionary.get("wardType", "")
-
-
-@cassiopeia.type.core.common.inheritdocs
-class ParticipantFrame(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Args:
-        rank (int): rune rank
-        runeId (int): rune ID
-    """
-    def __init__(self, dictionary):
-        self.currentGold = dictionary.get("currentGold", 0)
-        self.dominionScore = dictionary.get("dominionScore", 0)
-        self.jungleMinionsKilled = dictionary.get("jungleMinionsKilled", 0)
-        self.level = dictionary.get("level", 0)
-        self.minionsKilled = dictionary.get("minionsKilled", 0)
-        self.participantId = dictionary.get("participantId", 0)
-        val = dictionary.get("position", None)
-        self.position = Position(val) if val and not isinstance(val, Position) else val
-        self.teamScore = dictionary.get("teamScore", 0)
-        self.totalGold = dictionary.get("totalGold", 0)
-        self.xp = dictionary.get("xp", 0)
-
-
-@cassiopeia.type.core.common.inheritdocs
-class Position(cassiopeia.type.dto.common.CassiopeiaDto):
-    """
-    Args:
-        matchHistoryUri (str): match history URI
-        profileIcon (int): profile icon ID
-        summonerId (int): summoner ID
-        summonerName (str): summoner name
-    """
-    def __init__(self, dictionary):
-        self.x = dictionary.get("x", 0)
-        self.y = dictionary.get("y", 0)
 
 
 ###############################
@@ -610,7 +337,7 @@ def _sa_bind_match_detail():
         #region = sqlalchemy.Column(sqlalchemy.String(30))
         #season = sqlalchemy.Column(sqlalchemy.String(30))
         teams = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Team", cascade="all, delete-orphan", passive_deletes=True)
-        timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Timeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
+        #timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Timeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
 
 
 def _sa_bind_participant():
@@ -628,7 +355,7 @@ def _sa_bind_participant():
         #spell2Id = sqlalchemy.Column(sqlalchemy.Integer)
         stats = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantStats", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
         teamId = sqlalchemy.Column(sqlalchemy.Integer)
-        timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantTimeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
+        #timeline = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantTimeline", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
         _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
         _match_id = sqlalchemy.Column(sqlalchemy.BigInteger, sqlalchemy.ForeignKey("MatchDetail.matchId", ondelete="CASCADE"))
 
@@ -651,7 +378,7 @@ def _sa_bind_team():
     @cassiopeia.type.core.common.inheritdocs
     class Team(Team, cassiopeia.type.dto.common.BaseDB):
         __tablename__ = "MatchTeam"
-        bans = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.BannedChampion", cascade="all, delete-orphan", passive_deletes=True)
+        #bans = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.BannedChampion", cascade="all, delete-orphan", passive_deletes=True)
         #baronKills = sqlalchemy.Column(sqlalchemy.Integer)
         #dominionVictoryScore = sqlalchemy.Column(sqlalchemy.Integer)
         #dragonKills = sqlalchemy.Column(sqlalchemy.Integer)
@@ -668,17 +395,6 @@ def _sa_bind_team():
         _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
         _match_id = sqlalchemy.Column(sqlalchemy.BigInteger, sqlalchemy.ForeignKey("MatchDetail.matchId", ondelete="CASCADE"))
 
-
-def _sa_bind_timeline():
-    global Timeline
-
-    @cassiopeia.type.core.common.inheritdocs
-    class Timeline(Timeline, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchTimeline"
-        frameInterval = sqlalchemy.Column(sqlalchemy.Integer)
-        frames = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Frame", cascade="all, delete-orphan", passive_deletes=True)
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _match_id = sqlalchemy.Column(sqlalchemy.BigInteger, sqlalchemy.ForeignKey("MatchDetail.matchId", ondelete="CASCADE"))
 
 
 def _sa_bind_mastery():
@@ -829,124 +545,21 @@ def _sa_bind_player():
         _participant_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchParticipantIdentity._id", ondelete="CASCADE"))
 
 
-def _sa_bind_banned_champion():
-    global BannedChampion
-
-    @cassiopeia.type.core.common.inheritdocs
-    class BannedChampion(BannedChampion, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchBannedChampion"
-        #championId = sqlalchemy.Column(sqlalchemy.Integer)
-        #pickTurn = sqlalchemy.Column(sqlalchemy.Integer)
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _team_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchTeam._id", ondelete="CASCADE"))
-
-
-def _sa_bind_frame():
-    global Frame
-
-    @cassiopeia.type.core.common.inheritdocs
-    class Frame(Frame, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchFrame"
-        #events = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Event", cascade="all, delete-orphan", passive_deletes=True)
-        #participantFrames = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.ParticipantFrame", collection_class=sqlalchemy.orm.collections.mapped_collection(lambda p: str(p.participantId)), cascade="all, delete-orphan", passive_deletes=True)  # OR I HAVE NO IDEA
-        #timestamp = sqlalchemy.Column(sqlalchemy.Integer)
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _timeline_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchTimeline._id", ondelete="CASCADE"))
-
-
-def _sa_bind_participant_timeline_data():
-    global ParticipantTimelineData
-
-    @cassiopeia.type.core.common.inheritdocs
-    class ParticipantTimelineData(ParticipantTimelineData, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchParticipantTimelineData"
-        #tenToTwenty = sqlalchemy.Column(sqlalchemy.Float)
-        #thirtyToEnd = sqlalchemy.Column(sqlalchemy.Float)
-        #twentyToThirty = sqlalchemy.Column(sqlalchemy.Float)
-        #zeroToTen = sqlalchemy.Column(sqlalchemy.Float)
-        #_type = sqlalchemy.Column(sqlalchemy.String(50))
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _timeline_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchParticipantTimeline._id", ondelete="CASCADE"))
-
-
-def _sa_bind_event():
-    global Event
-
-    @cassiopeia.type.core.common.inheritdocs
-    class Event(Event, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchEvent"
-        #ascendedType = sqlalchemy.Column(sqlalchemy.String(30))
-        #assistingParticipantIds = sqlalchemy.Column(cassiopeia.type.dto.common.JSONEncoded)
-        #buildingType = sqlalchemy.Column(sqlalchemy.String(30))
-        #creatorId = sqlalchemy.Column(sqlalchemy.Integer)
-        #eventType = sqlalchemy.Column(sqlalchemy.String(30))
-        #itemAfter = sqlalchemy.Column(sqlalchemy.Integer)
-        #itemBefore = sqlalchemy.Column(sqlalchemy.Integer)
-        #itemId = sqlalchemy.Column(sqlalchemy.Integer)
-        #killerId = sqlalchemy.Column(sqlalchemy.Integer)
-        #laneType = sqlalchemy.Column(sqlalchemy.String(30))
-        #levelUpType = sqlalchemy.Column(sqlalchemy.String(30))
-        #monsterType = sqlalchemy.Column(sqlalchemy.String(30))
-        #participantId = sqlalchemy.Column(sqlalchemy.Integer)
-        #pointCaptured = sqlalchemy.Column(sqlalchemy.String(30))
-        #position = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Position", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
-        #skillSlot = sqlalchemy.Column(sqlalchemy.Integer)
-        #teamId = sqlalchemy.Column(sqlalchemy.Integer)
-        #timestamp = sqlalchemy.Column(sqlalchemy.Integer)
-        #towerType = sqlalchemy.Column(sqlalchemy.String(30))
-        #victimId = sqlalchemy.Column(sqlalchemy.Integer)
-        #wardType = sqlalchemy.Column(sqlalchemy.String(30))
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _frame_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchFrame._id", ondelete="CASCADE"))
-
-
-def _sa_bind_participant_frame():
-    global ParticipantFrame
-
-    @cassiopeia.type.core.common.inheritdocs
-    class ParticipantFrame(ParticipantFrame, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchParticipantFrame"
-        #currentGold = sqlalchemy.Column(sqlalchemy.Integer)
-        #dominionScore = sqlalchemy.Column(sqlalchemy.Integer)
-        #jungleMinionsKilled = sqlalchemy.Column(sqlalchemy.Integer)
-        #level = sqlalchemy.Column(sqlalchemy.Integer)
-        #minionsKilled = sqlalchemy.Column(sqlalchemy.Integer)
-        #participantId = sqlalchemy.Column(sqlalchemy.Integer)
-        #position = sqlalchemy.orm.relationship("cassiopeia.type.dto.match.Position", uselist=False, cascade="all, delete-orphan", passive_deletes=True)
-        #teamScore = sqlalchemy.Column(sqlalchemy.Integer)
-        #totalGold = sqlalchemy.Column(sqlalchemy.Integer)
-        #xp = sqlalchemy.Column(sqlalchemy.Integer)
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _frame_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchFrame._id", ondelete="CASCADE"))
-
-
-def _sa_bind_position():
-    global Position
-
-    @cassiopeia.type.core.common.inheritdocs
-    class Position(Position, cassiopeia.type.dto.common.BaseDB):
-        __tablename__ = "MatchPosition"
-        #x = sqlalchemy.Column(sqlalchemy.Integer)
-        #y = sqlalchemy.Column(sqlalchemy.Integer)
-        _id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-        _event_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchEvent._id", ondelete="CASCADE"))
-        _frame_id = sqlalchemy.Column(sqlalchemy.Integer, sqlalchemy.ForeignKey("MatchParticipantFrame._id", ondelete="CASCADE"))
-
 
 def _sa_bind_all():
     _sa_bind_match_detail()
     _sa_bind_participant()
     _sa_bind_participant_identity()
     _sa_bind_team()
-    _sa_bind_timeline()
+    #_sa_bind_timeline()
     _sa_bind_mastery()
     _sa_bind_participant_stats()
     _sa_bind_participant_timeline()
     _sa_bind_rune()
     _sa_bind_player()
-    _sa_bind_banned_champion()
-    _sa_bind_frame()
-    _sa_bind_participant_timeline_data()
+    #_sa_bind_banned_champion()
+    #_sa_bind_frame()
+    #_sa_bind_participant_timeline_data()
     #_sa_bind_event()
     #_sa_bind_participant_frame()
     #_sa_bind_position()
