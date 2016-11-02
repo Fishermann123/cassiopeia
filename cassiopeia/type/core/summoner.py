@@ -5,134 +5,6 @@ import cassiopeia.type.core.common
 import cassiopeia.type.dto.summoner
 
 
-@cassiopeia.type.core.common.inheritdocs
-class RunePage(cassiopeia.type.core.common.CassiopeiaObject):
-    dto_type = cassiopeia.type.dto.summoner.RunePage
-
-    def __str__(self):
-        return "Rune Page ({name})".format(name=self.name)
-
-    def __iter__(self):
-        return iter(self.runes)
-
-    def __len__(self):
-        return len(self.runes)
-
-    def __getitem__(self, index):
-        return self.runes[index]
-
-    def __eq__(self, other):
-        return self.id == other.id
-
-    def __ne__(self, other):
-        return self.id != other.id
-
-    def __hash__(self):
-        return hash(self.id)
-
-    @property
-    def current(self):
-        """
-        Returns:
-            bool: whether or not this rune page is active
-        """
-        return self.data.current
-
-    @property
-    def id(self):
-        """
-        Returns:
-            int: the rune page's id
-        """
-        return self.data.id
-
-    @property
-    def name(self):
-        """
-        Returns:
-            str: the rune page's name
-        """
-        return self.data.name
-
-    @cassiopeia.type.core.common.lazyproperty
-    def runes(self):
-        """
-        Returns:
-            list<Rune>: the runes in this rune page
-        """
-        runes = {}
-        for slot in self.data.slots:
-            try:
-                runes[slot.runeId] += 1
-            except KeyError:
-                runes[slot.runeId] = 1
-
-        fetched = cassiopeia.riotapi.get_runes(list(runes.keys()))
-        return {rune: runes[rune.id] for rune in fetched}
-
-
-@cassiopeia.type.core.common.inheritdocs
-class MasteryPage(cassiopeia.type.core.common.CassiopeiaObject):
-    dto_type = cassiopeia.type.dto.summoner.MasteryPage
-
-    def __str__(self):
-        return "Mastery Page ({name})".format(name=self.name)
-
-    def __iter__(self):
-        return iter(self.masteries)
-
-    def __len__(self):
-        return len(self.masteries)
-
-    def __getitem__(self, index):
-        return self.masteries[index]
-
-    def __eq__(self, other):
-        return self.id == other.id
-
-    def __ne__(self, other):
-        return self.id != other.id
-
-    def __hash__(self):
-        return hash(self.id)
-
-    @property
-    def current(self):
-        """
-        Returns:
-            bool: whether or not this mastery page is active
-        """
-        return self.data.current
-
-    @property
-    def id(self):
-        """
-        Returns:
-            int: the mastery page's id
-        """
-        return self.data.id
-
-    @cassiopeia.type.core.common.lazyproperty
-    def masteries(self):
-        """
-        Returns:
-            list<Mastery>: this mastery page's masteries
-        """
-        masteries = []
-        ranks = []
-        for mastery in self.data.masteries.items():
-            masteries.append(mastery[0])
-            ranks.append(mastery[1])
-        return dict(zip(cassiopeia.riotapi.get_masteries(masteries), ranks))
-
-    @property
-    def name(self):
-        """
-        Returns:
-            str: the mastery page's name
-        """
-        return self.data.name
-
 
 @cassiopeia.type.core.common.inheritdocs
 class Summoner(cassiopeia.type.core.common.CassiopeiaObject):
@@ -207,21 +79,6 @@ class Summoner(cassiopeia.type.core.common.CassiopeiaObject):
         """
         return cassiopeia.riotapi.get_recent_games(self)
 
-    @cassiopeia.type.core.common.immutablemethod
-    def rune_pages(self):
-        """
-        Returns:
-            str: the name of this summoner's rune page
-        """
-        return cassiopeia.riotapi.get_rune_pages(self)
-
-    @cassiopeia.type.core.common.immutablemethod
-    def mastery_pages(self):
-        """
-        Returns:
-            list<Rune>: the runes in this rune page
-        """
-        return cassiopeia.riotapi.get_mastery_pages(self)
 
     @cassiopeia.type.core.common.immutablemethod
     def leagues(self):
@@ -319,6 +176,6 @@ class Summoner(cassiopeia.type.core.common.CassiopeiaObject):
 # Dynamic SQLAlchemy bindings #
 ###############################
 def _sa_rebind_all():
-    RunePage.dto_type = cassiopeia.type.dto.summoner.RunePage
-    MasteryPage.dto_type = cassiopeia.type.dto.summoner.MasteryPage
+    #RunePage.dto_type = cassiopeia.type.dto.summoner.RunePage
+    #MasteryPage.dto_type = cassiopeia.type.dto.summoner.MasteryPage
     Summoner.dto_type = cassiopeia.type.dto.summoner.Summoner
