@@ -96,7 +96,7 @@ def get_matches(ids, include_timeline=False, tournament_code=""):
     match = pool.map_async(get_match, missing).get()
     time_taken = time.time() - pool_time
     print("Pool closed within {0} seconds".format(time_taken))
-    print(match)
+    #print(match)
     #print('Close and join pool')
     pool.close()
     pool.join()
