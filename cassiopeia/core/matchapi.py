@@ -90,12 +90,12 @@ def get_matches(ids, include_timeline=False, tournament_code=""):
 
     # Make requests to get them
     #print('Set pool')
-    pool = ThreadPool(20)
+    pool = ThreadPool(25)
     print("Make {0} requests to get the missing matches".format(len(missing)))
     pool_time = time.time()
     match = pool.map_async(get_match, missing).get()
     time_taken = time.time() - pool_time
-    print("Pool closed within {0} seconds".format(time_taken))
+    print("Pool(25) closed within {0} seconds".format(time_taken))
     #print(match)
     #print('Close and join pool')
     pool.close()
