@@ -42,7 +42,6 @@ class LazyProperty(object):
     def __init__(self, method):
         """
         Gets a JSON representation of the object
-
         Returns:
             str: a JSON representation of the object
         """
@@ -81,13 +80,12 @@ def lazyproperty(method):
 class immutablemethod(object):
     """
     Makes a property load only once and store the result value to be returned to all later calls
-
     Args:
         method (function): the method to turn into a lazy property
-
     Returns:
         function: the method as a lazy property
     """
+
     def __init__(self, method):
         """
         Makes a method un-deletable and un-repleacable
@@ -125,74 +123,6 @@ def inheritdocs(class_):
     return class_
 
 
-class LookupableMixin(object):
-    def __init__(self, fields, args):
-        super().__init__(args)
-        self.fields = fields
-
-    def __getitem__(self, key):
-        try:
-            return super().__getitem__(key)
-        except (TypeError, IndexError, KeyError, AttributeError):
-            return self._lookup(key)
-
-
-class LookupableList(LookupableMixin, list):
-    def _lookup(self, key):
-        for field, _type in self.fields:
-            if isinstance(key, _type):
-                for item in self:
-                    # The next 7 lines allow lookup keys such as 'champion.name'
-                    attr = item
-                    _field = field
-                    while '.' in _field:
-                        _field, tail = _field.split('.', 1)
-                        attr = getattr(attr, _field)
-                        _field = tail
-                    attr = getattr(attr, _field)
-                    if key == attr:
-                        return item
-        else:
-            raise KeyError(key)
-
-
-class LookupableDict(LookupableMixin, dict):
-    def _lookup(self, key):
-        for field, _type in self.fields:
-            if isinstance(key, _type):
-                for item in self:
-                    # The next 7 lines allow lookup keys such as 'champion.name'
-                    attr = item
-                    _field = field
-                    while '.' in _field:
-                        _field, tail = _field.split('.', 1)
-                        attr = getattr(attr, _field)
-                        _field = tail
-                    attr = getattr(attr, _field)
-                    if key == attr:
-                        return self[item]
-        else:
-            raise KeyError(key)
-
-
-def indexable(fields):
-    """
-        Args:
-            fields (list<tuple<str, type>>): a list of tuples of the form (attribute_name, attribute_type) to perform the lookup on in the objects in the list or dict
-    """
-    @cassiopeia.type.core.common.inheritdocs
-    def _wrapper(func):
-        def wrapper(*args, **kwargs):
-            result = func(*args, **kwargs)
-            if isinstance(result, list):
-                result = LookupableList(fields, result)
-            if isinstance(result, dict):
-                result = LookupableDict(fields, result)
-            return result
-        return wrapper
-    return _wrapper
-
-
 class LoadPolicy(enum.Enum):
     lazy = "LAZY"
     eager = "EAGER"
@@ -216,6 +146,7 @@ class Lane(enum.Enum):
         except:
             return None
 
+
 Lane.by_id = {
     1: Lane.top_lane,
     2: Lane.mid_lane,
@@ -237,6 +168,7 @@ class Role(enum.Enum):
         except:
             return None
 
+
 Role.by_id = {
     1: Role.duo,
     2: Role.support,
@@ -252,21 +184,21 @@ class Side(enum.Enum):
 
 class Queue(enum.Enum):
     custom = "CUSTOM"
+    normal_blind_threes = "NORMAL_3x3"
     normal_blind_fives = "NORMAL_5x5_BLIND"
+    normal_draft_fives = "NORMAL_5x5_DRAFT"
+    ranked_solo = "RANKED_SOLO_5x5"
+    ranked_premade_fives = "RANKED_PREMADE_5x5"
+    ranked_premade_threes = "RANKED_PREMADE_3x3"
+    ranked_threes = "RANKED_TEAM_3x3"
+    ranked_fives = "RANKED_TEAM_5x5"
+    dominion_blind = "ODIN_5x5_BLIND"
+    dominion_draft = "ODIN_5x5_DRAFT"
+    bot_dominion = "BOT_ODIN_5x5"
     bot_fives = "BOT_5x5"
     bot_intro_fives = "BOT_5x5_INTRO"
     bot_beginner_fives = "BOT_5x5_BEGINNER"
     bot_intermediate_fives = "BOT_5x5_INTERMEDIATE"
-    normal_blind_threes = "NORMAL_3x3"
-    normal_draft_fives = "NORMAL_5x5_DRAFT"
-    dominion_blind = "ODIN_5x5_BLIND"
-    dominion_draft = "ODIN_5x5_DRAFT"
-    bot_dominion = "BOT_ODIN_5x5"
-    ranked_solo = "RANKED_SOLO_5x5"
-    ranked_premade_threes = "RANKED_PREMADE_3x3"
-    ranked_premade_fives = "RANKED_PREMADE_5x5"
-    ranked_threes = "RANKED_TEAM_3x3"
-    ranked_fives = "RANKED_TEAM_5x5"
     bot_threes = "BOT_TT_3x3"
     team_builder = "GROUP_FINDER_5x5"
     aram = "ARAM_5x5"
@@ -275,6 +207,7 @@ class Queue(enum.Enum):
     showdown_duo = "FIRSTBLOOD_2x2"
     hexakill_summoners_rift = "SR_6x6"
     urf = "URF_5x5"
+    one_for_all_mirror = "ONEFORALL_MIRRORMODE_5x5"
     bot_urf = "BOT_URF_5x5"
     doom_bots_1 = "NIGHTMARE_BOT_5x5_RANK1"
     doom_bots_2 = "NIGHTMARE_BOT_5x5_RANK2"
@@ -285,8 +218,12 @@ class Queue(enum.Enum):
     poro_king = "KING_PORO_5x5"
     nemesis_draft = "COUNTER_PICK"
     black_market = "BILGEWATER_5x5"
+    nexus_siege = "SIEGE"
+    definitely_not_dominion = "DEFINITELY_NOT_DOMINION_5x5"
+    random_urf = "ARURF_5X5"
     dynamic_queue = "TEAM_BUILDER_DRAFT_UNRANKED_5x5"
     ranked_dynamic_queue = "TEAM_BUILDER_DRAFT_RANKED_5x5"
+    flex = "RANKED_FLEX_SR"
 
     def for_id(id_):
         try:
@@ -294,43 +231,49 @@ class Queue(enum.Enum):
         except:
             return None
 
+
 Queue.by_id = {
     0: Queue.custom,
-    65: Queue.aram,
+    8: Queue.normal_blind_threes,
     2: Queue.normal_blind_fives,
+    14: Queue.normal_draft_fives,
     4: Queue.ranked_solo,
     6: Queue.ranked_premade_fives,
-    7: Queue.bot_fives,
-    8: Queue.normal_blind_threes,
     9: Queue.ranked_premade_threes,
-    75: Queue.hexakill_summoners_rift,
-    76: Queue.urf,
-    14: Queue.normal_draft_fives,
+    41: Queue.ranked_threes,
+    42: Queue.ranked_fives,
     16: Queue.dominion_blind,
     17: Queue.dominion_draft,
-    83: Queue.bot_urf,
     25: Queue.bot_dominion,
-    91: Queue.doom_bots_1,
-    92: Queue.doom_bots_2,
-    93: Queue.doom_bots_5,
+    7: Queue.bot_fives,
     31: Queue.bot_intro_fives,
     32: Queue.bot_beginner_fives,
     33: Queue.bot_intermediate_fives,
+    52: Queue.bot_threes,
+    61: Queue.team_builder,
+    65: Queue.aram,
+    70: Queue.one_for_all,
+    72: Queue.showdown_solo,
+    73: Queue.showdown_duo,
+    75: Queue.hexakill_summoners_rift,
+    76: Queue.urf,
+    78: Queue.one_for_all_mirror,
+    83: Queue.bot_urf,
+    91: Queue.doom_bots_1,
+    92: Queue.doom_bots_2,
+    93: Queue.doom_bots_5,
+    96: Queue.ascension,
     98: Queue.hexakill_twisted_treeline,
     100: Queue.butchers_bridge,
-    70: Queue.one_for_all,
-    41: Queue.ranked_threes,
-    42: Queue.ranked_fives,
     300: Queue.poro_king,
-    96: Queue.ascension,
-    72: Queue.showdown_solo,
-    52: Queue.bot_threes,
     310: Queue.nemesis_draft,
-    73: Queue.showdown_duo,
     313: Queue.black_market,
-    61: Queue.team_builder,
+    315: Queue.nexus_siege,
+    317: Queue.definitely_not_dominion,
+    318: Queue.random_urf,
     400: Queue.dynamic_queue,
-    410: Queue.ranked_dynamic_queue
+    410: Queue.ranked_dynamic_queue,
+    440: Queue.flex
 }
 ranked_queues = {Queue.ranked_solo, Queue.ranked_threes, Queue.ranked_fives, Queue.ranked_dynamic_queue}
 
@@ -363,6 +306,7 @@ class Season(enum.Enum):
     season_5 = "SEASON2015"
     preseason_6 = "PRESEASON2016"
     season_6 = "SEASON2016"
+
 
 stats_seasons = {Season.season_3, Season.season_4, Season.season_5, Season.season_6}
 
@@ -416,6 +360,7 @@ class GameMode(enum.Enum):
     dominion = "ODIN"
     one_for_all = "ONEFORALL"
     tutorial = "TUTORIAL"
+    nexus_siege = "SIEGE"
 
 
 class GameType(enum.Enum):
@@ -448,6 +393,8 @@ class SubType(enum.Enum):
     poro_king = "KING_PORO"
     nemesis_draft = "COUNTER_PICK"
     black_market = "BILGEWATER"
+    nexus_siege = "SIEGE"
+    flex = "RANKED_FLEX_SR"
 
 
 class StatSummaryType(enum.Enum):
@@ -459,9 +406,7 @@ class StatSummaryType(enum.Enum):
     bot_threes = "CoopVsAI3x3"
     ranked_solo = "RankedSolo5x5"
     ranked_threes = "RankedTeam3x3"
-    ranked_premade_threes = "RankedPremade3x3"
     ranked_fives = "RankedTeam5x5"
-    ranked_premade_fives = "RankedPremade5x5"
     one_for_all = "OneForAll5x5"
     showdown_solo = "FirstBlood1x1"
     showdown_duo = "FirstBlood2x2"
@@ -475,6 +420,11 @@ class StatSummaryType(enum.Enum):
     poro_king = "KingPoro"
     nemesis_draft = "CounterPick"
     black_market = "Bilgewater"
+    nexus_siege = "Siege"
+    flex_twisted_treeline = "RankedFlexTT"
+    flex_summoners_rift = "RankedFlexSR"
+    ranked_premade_threes = "RankedPremade3x3"  # Not listed on game constants documentation page
+    ranked_premade_fives = "RankedPremade5x5"   # Not listed on game constants documentation page
 
 
 class Ascended(enum.Enum):
